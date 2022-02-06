@@ -10,3 +10,5 @@ Just a flashcard plugin for Obsidian. It is still **under development**!
 - [ ] mark good / bad in obsidian
 - [ ] note the last review date and the previous review result
 - [ ] a cumulative pane (of all the cards in Obsidian)
+
+

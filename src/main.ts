@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { App, Plugin, PluginSettingTab, Setting, MarkdownRenderer } from "obsidian";
 import { Flash } from "./flash";
 
@@ -18,7 +19,41 @@ export default class MyPlugin extends Plugin {
       anotherConfigData: "defaultValue",
     };
 
+    this.addCommand({
+        id: "flash-insert-flash",
+        name: "Insert Flashcard",
+        hotkeys: [{modifiers: ["Mod"], key: "F"}],
+        editorCallback: async (editor) => {
+          editor.replaceSelection(
+            "```flash\n\n---\n\n```"
+          )
+          let cursor = editor.getCursor();
+          editor.setCursor({
+            line: cursor.line - 3 > 0 ? cursor.line - 3 : 0,
+            ch: 0,
+          });
+        }
+      })
+
+      this.addCommand({
+        id: "embed-in-cloze",
+        name: "Embed in Cloze",
+        hotkeys: [{modifiers: ["Mod"], key: "E"}],
+        editorCallback: async (editor) => {
+          let selectedText = editor.getSelection();
+          editor.replaceSelection(
+            `{:${selectedText}:}`
+          );
+          let cursor = editor.getCursor();
+          editor.setCursor({
+            line: cursor.line,
+            ch: cursor.ch - 2 > 0 ? cursor.ch - 2 : 0,
+          });
+        }
+      })
+
     this.registerMarkdownCodeBlockProcessor('flash', (source, el, ctx) => {
+      let flash = new Flash(source);
       el.classList.add('flash-body');
       let cardFront = document.createElement('div');
       cardFront.classList.add('flash-card-front');
@@ -27,8 +62,6 @@ export default class MyPlugin extends Plugin {
       cardBack.classList.add('flash-card-invisible');
       let buttonContainer = document.createElement('div');
       buttonContainer.classList.add('flash-button-container');
-      // center align button container
-      buttonContainer.style.textAlign = 'center';
       let button = document.createElement('button');
       button.classList.add('flash-card-button');
       // append button to button container
@@ -36,23 +69,40 @@ export default class MyPlugin extends Plugin {
       // add the cards to el
       el.appendChild(cardFront);
       // add an hr 
-      el.appendChild(cardBack);
+      if (flash.getBack() !== "") {
+        el.appendChild(cardBack);
+      }
       el.appendChild(buttonContainer);
       button.innerText = 'Show Answer';
       // when the button is clicked, toggle the display of the back card
       button.addEventListener('click', () => {
+        let spans = el.getElementsByClassName('flash-cloze') as HTMLCollectionOf<HTMLSpanElement>;
         if (!cardBack.classList.toggle('flash-card-invisible')) {
           button.innerText = "Hide Answer";
+          for (let i = 0; i < spans.length; i ++) {
+            spans[i].classList.remove('flash-cloze-hidden');
+          }
         } else {
           button.innerText = "Show Answer";
+          for (let i = 0; i < spans.length; i ++) {
+            spans[i].classList.add('flash-cloze-hidden');
+          }
         }
       });
       button.classList.add('flash-card-button');
-      // center align the button
-      button.style.textAlign = 'center';
-      let flash = new Flash(source);
       MarkdownRenderer.renderMarkdown(flash.getFront(), cardFront, ctx.sourcePath, null);
-      MarkdownRenderer.renderMarkdown(flash.getBack(), cardBack, ctx.sourcePath, null);
+      if (flash.getBack() !== "") {
+        MarkdownRenderer.renderMarkdown(flash.getBack(), cardBack, ctx.sourcePath, null);
+      }
+      
+      let spans = el.getElementsByClassName('flash-cloze') as HTMLCollectionOf<HTMLSpanElement>;
+      for (let i = 0; i < spans.length; i ++) {
+        // add callback to span
+        spans[i].addEventListener('click', () => {
+          // toggle 'flash-cloze-hidden' class
+          spans[i].classList.toggle('flash-cloze-hidden');
+        });
+      }
     });
     this.addSettingTab(new MyPluginSettingsTab(this.app, this));
   }

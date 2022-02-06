@@ -11,13 +11,18 @@
     /* add margin to left and right */
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     background-color: #fef6e4;
     color: #172c66;
 }
 
 .flash-card-front {
     background-color: #f3d2c1;
-    margin-top: 0px;
+    margin-bottom: -1px;
+    margin-top: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 5px;
@@ -47,10 +52,70 @@
 .flash-button-container {
     background-color: #f3d2c1;
     margin-bottom: -1px;
-    margin-top: 0px;
+    margin-top: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0px;
     padding-bottom: 5px;
     text-align: center;
+}
+
+.flash-cloze-hidden {
+    color: #f582ae !important;
+    background-color: #f582ae !important;
+}
+
+.flash-cloze-hidden:hover {
+    color: #f13b81 !important;
+    background-color: #f13b81 !important;
+}
+
+.flash-cloze {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: bold;
+    background-color: #f582ae80;
+}
+
+.flash-cloze:hover {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: bold;
+    background-color: #f13b81;
+}
+
+.cm-preview-code-block .flash-body {
+    line-height: 1.5em;
+}
+
+.cm-preview-code-block p:first-child {
+    margin-top: 0.5em;
+}
+
+.cm-preview-code-block p:last-child {
+    margin-bottom: 0.5em;
+}
+
+.cm-preview-code-block p {
+    margin-top: -1.5em;
+}
+
+
+.cm-preview-code-block ol, .cm-preview-code-block ul {
+    margin-top: -2.5em;
+}
+
+.cm-preview-code-block ol:last-child, .cm-preview-code-block ul:last-child {
+    margin-bottom: -1.5em;
+}
+
+.cm-preview-code-block li {
+    margin-top: -1em;
+    line-height: 1.5em;
+}
+
+.cm-preview-code-block br {
+    line-height: 0.3em;
 }
