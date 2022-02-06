@@ -1,7 +1,7 @@
 {
-  "id": "your-obsidian-plugin",
-  "name": "Obsidian Plugin Template",
-  "description": "A Simple Template for Plugins",
+  "id": "obsidian-flash",
+  "name": "Obsidian Flash",
+  "description": "A Simple Flashcard Plugin for Obsidian",
   "isDesktopOnly": false,
   "js": "main.js"
 }

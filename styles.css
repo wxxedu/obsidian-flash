@@ -1,0 +1,56 @@
+.flash-card-invisible {
+  display: none;
+}
+
+.flash-body {
+    /* make the body elevated */
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.5); */
+    /* add a border to the flash body with border radius */
+    border-radius: 5px;
+    border: 2px solid #f3d2c1;
+    /* add margin to left and right */
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #fef6e4;
+    color: #172c66;
+}
+
+.flash-card-front {
+    background-color: #f3d2c1;
+    margin-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.flash-card-back {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.flash-card-button {
+    background-color: #f582ae;
+    color:#001858;
+}
+
+.flash-card-button:hover {
+    /* set the background color to darker than f582ae */
+    background-color: #f13b81;
+}
+
+.flash-button-container {
+    background-color: #f3d2c1;
+    margin-bottom: -1px;
+    margin-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+    text-align: center;
+}

@@ -1,4 +1,5 @@
-import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
+import { App, Plugin, PluginSettingTab, Setting, MarkdownRenderer } from "obsidian";
+import { Flash } from "./flash";
 
 export default class MyPlugin extends Plugin {
   // This field stores your plugin settings.
@@ -7,7 +8,7 @@ export default class MyPlugin extends Plugin {
   onInit() {}
 
   async onload() {
-    console.log("Plugin is Loading...");
+    console.log("Loading Obsidian Renderer...");
 
     // This snippet of code is used to load pluging settings from disk (if any)
     // and then add the setting tab in the Obsidian Settings panel.
@@ -16,6 +17,43 @@ export default class MyPlugin extends Plugin {
       someConfigData: 1,
       anotherConfigData: "defaultValue",
     };
+
+    this.registerMarkdownCodeBlockProcessor('flash', (source, el, ctx) => {
+      el.classList.add('flash-body');
+      let cardFront = document.createElement('div');
+      cardFront.classList.add('flash-card-front');
+      let cardBack = document.createElement('div');
+      cardBack.classList.add('flash-card-back');
+      cardBack.classList.add('flash-card-invisible');
+      let buttonContainer = document.createElement('div');
+      buttonContainer.classList.add('flash-button-container');
+      // center align button container
+      buttonContainer.style.textAlign = 'center';
+      let button = document.createElement('button');
+      button.classList.add('flash-card-button');
+      // append button to button container
+      buttonContainer.appendChild(button);
+      // add the cards to el
+      el.appendChild(cardFront);
+      // add an hr 
+      el.appendChild(cardBack);
+      el.appendChild(buttonContainer);
+      button.innerText = 'Show Answer';
+      // when the button is clicked, toggle the display of the back card
+      button.addEventListener('click', () => {
+        if (!cardBack.classList.toggle('flash-card-invisible')) {
+          button.innerText = "Hide Answer";
+        } else {
+          button.innerText = "Show Answer";
+        }
+      });
+      button.classList.add('flash-card-button');
+      // center align the button
+      button.style.textAlign = 'center';
+      let flash = new Flash(source);
+      MarkdownRenderer.renderMarkdown(flash.getFront(), cardFront, ctx.sourcePath, null);
+      MarkdownRenderer.renderMarkdown(flash.getBack(), cardBack, ctx.sourcePath, null);
+    });
     this.addSettingTab(new MyPluginSettingsTab(this.app, this));
   }
 
