@@ -5,7 +5,7 @@ export class Flash {
     front: string;
     back: string;
     constructor(public source: string) {
-        let fandb = source.split('---');
+        let fandb = source.split('\n---\n');
         this.front = fandb[0];
         if (fandb.length > 1) {
             this.back = fandb[1].trim();

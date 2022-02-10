@@ -107,8 +107,12 @@
     margin-top: -2.5em;
 }
 
+.cm-preview-code-block ol:first-child, .cm-preview-code-block ul:first-child {
+    margin-top: 0em;
+}
+
 .cm-preview-code-block ol:last-child, .cm-preview-code-block ul:last-child {
-    margin-bottom: -1.5em;
+    margin-bottom: -1em;
 }
 
 .cm-preview-code-block li {
@@ -118,4 +122,20 @@
 
 .cm-preview-code-block br {
     line-height: 0.3em;
+}
+
+.cm-preview-code-block .math-block {
+    margin-top: -2.5em;
+    margin-bottom: 0em;
+}
+
+.cm-preview-code-block .math-block:first-child {
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+
+.cm-preview-code-block img {
+    margin-top: -2em;
+    margin-bottom: 2em;
 }
